@@ -8,9 +8,9 @@ json_file = Path(__file__).parent / 'credentials/credentials.json'
 
 
 def read_date_time_underscore_format():
-    return str(datetime.now().strftime('%d-%m_%y%H-%M-%S'))
+    return str(datetime.now().strftime('%d-%m-%y_%H-%M-%S'))
 
-for i in range(5):
+for j in range(5):
     command = 'top -b -n 1 > top.txt'
     os.system(command)
 
@@ -28,4 +28,5 @@ for i in range(5):
     gsheet_name = f'Top_{read_date_time_underscore_format()}'
     create_and_share_drive_spreadsheet_for_all_result(gsheet_name, json_file)
     write_df_in_sheet(json_file, gsheet_name, 'Sheet1', df)
+    print(j)
     sleep(3000)
