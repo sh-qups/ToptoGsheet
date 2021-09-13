@@ -62,7 +62,9 @@ def select_worksheet_by_name(gsheet, name):
     return gsheet.worksheet(name)
 
 
-def create_worksheet(gsheet, title, rows, cols):
+def create_worksheet(json_file, gsheet, title, rows, cols):
+    client = get_authorized_client(json_file)
+    gsheet = open_spreadsheet_by_filename(client, gsheet)
     worksheet = gsheet.add_worksheet(title=title, rows=rows, cols=cols)
     return worksheet
 
