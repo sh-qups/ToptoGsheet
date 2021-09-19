@@ -55,9 +55,9 @@ for k in range(1, 1000):
         df = pd.DataFrame(result, columns=['', '', '', '', '', '', '', '', '', '', '', ''])
         # print(df)
         if count == 100:
-            count = 0
             gsheet_name = create_gsheet()
-        create_worksheet(json_file, gsheet_name, f'S{k}_{hour_min_time_underscore_format()}', 1000, 26)
+            count = 0
+        create_worksheet(json_file, gsheet_name, f'S{k}_{hour_min_time_underscore_format()}', 10, 15)
         write_df_in_sheet(json_file, gsheet_name, f'S{k}_{hour_min_time_underscore_format()}', df)
         print('report_num:', k)
     except:
