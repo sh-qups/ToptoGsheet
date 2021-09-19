@@ -37,7 +37,7 @@ for j in range(1, 5):
     # upload to g_sheet
     if j == 1:
         gsheet_name = create_gsheet()
-    create_worksheet(json_file, gsheet_name, f'S{j}_{hour_min_time_underscore_format()}', 1000, 26)
+    create_worksheet(json_file, gsheet_name, f'S{j}_{hour_min_time_underscore_format()}', 10, 15)
     write_df_in_sheet(json_file, gsheet_name, f'S{j}_{hour_min_time_underscore_format()}', df)
     print('report_num:', j)
     sleep(3000)
