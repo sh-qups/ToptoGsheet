@@ -30,10 +30,11 @@ subprocess.call(script)
 count = 0
 gsheet_name = create_gsheet()
 for k in range(1, 1000):
+    count = count + 1
     try:
         result = []
         for i in range(0, 4):
-            count = count + 1
+
             command = './top.sh'
             os.system(command)
             file1 = open(f'top{i}.txt', 'r')
