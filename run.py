@@ -27,7 +27,7 @@ script = os.path.abspath(Path(__file__).parent / 'top.sh')
 subprocess.call(script)
 
 gsheet_name = ''
-for k in range(1, 5000):
+for k in range(1, 600):
     result = []
     for i in range(0, 5):
         file1 = open(f'top{i}.txt', 'r')
