@@ -26,31 +26,38 @@ def create_gsheet():
 script = os.path.abspath(Path(__file__).parent / 'top.sh')
 subprocess.call(script)
 
-gsheet_name = ''
-for k in range(1, 600):
-    result = []
-    for i in range(0, 5):
-        file1 = open(f'top{i}.txt', 'r')
-        Lines = file1.readlines()
-        if i == 0:
-            for l in range(3, 5):
-                # print(Lines[l])
-                result.append([Lines[l][:-2], '', '', '', '', '', '', '', '', '', '', ''])
-            result.append(['PID', 'USER', 'PR', 'NI', 'VIRT', 'RES', 'SHR', 'S', '%CPU', '%MEM', 'TIME+', 'COMMAND'])
-        else:
 
-            for j in range(7, len(Lines)):
-                result_list = (Lines[j].split('\n'))[0].split(' ')
-                result_list = list(filter(lambda a: a != '', result_list))
-                result.append(result_list)
-    # print(*result, sep='\n')
-    # print(len(result))
-    # df = pd.DataFrame(result, columns=['PID', 'USER', 'PR', 'NI', 'VIRT', 'RES', 'SHR', 'S', '%CPU', '%MEM', 'TIME+', 'COMMAND'])
-    df = pd.DataFrame(result, columns=['', '', '', '', '', '', '', '', '', '', '', ''])
-    # print(df)
-    if k == 1:
-        gsheet_name = create_gsheet()
-    create_worksheet(json_file, gsheet_name, f'S{k}_{hour_min_time_underscore_format()}', 1000, 26)
-    write_df_in_sheet(json_file, gsheet_name, f'S{k}_{hour_min_time_underscore_format()}', df)
-    print('report_num:', k)
-    sleep(5)
+count = 0
+gsheet_name = create_gsheet()
+for k in range(1, 1000):
+    try:
+        result = []
+        for i in range(0, 4):
+            count = count + 1
+            file1 = open(f'top{i}.txt', 'r')
+            Lines = file1.readlines()
+            if i == 0:
+                for l in range(3, 5):
+                    # print(Lines[l])
+                    result.append([Lines[l][:-2], '', '', '', '', '', '', '', '', '', '', ''])
+                result.append(['PID', 'USER', 'PR', 'NI', 'VIRT', 'RES', 'SHR', 'S', '%CPU', '%MEM', 'TIME+', 'COMMAND'])
+            else:
+
+                for j in range(7, len(Lines)):
+                    result_list = (Lines[j].split('\n'))[0].split(' ')
+                    result_list = list(filter(lambda a: a != '', result_list))
+                    result.append(result_list)
+        # print(*result, sep='\n')
+        # print(len(result))
+        # df = pd.DataFrame(result, columns=['PID', 'USER', 'PR', 'NI', 'VIRT', 'RES', 'SHR', 'S', '%CPU', '%MEM', 'TIME+', 'COMMAND'])
+        df = pd.DataFrame(result, columns=['', '', '', '', '', '', '', '', '', '', '', ''])
+        # print(df)
+        if count == 100:
+            count = 0
+            gsheet_name = create_gsheet()
+        create_worksheet(json_file, gsheet_name, f'S{k}_{hour_min_time_underscore_format()}', 1000, 26)
+        write_df_in_sheet(json_file, gsheet_name, f'S{k}_{hour_min_time_underscore_format()}', df)
+        print('report_num:', k)
+    except:
+        continue
+    sleep(30)
