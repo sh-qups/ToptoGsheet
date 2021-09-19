@@ -34,6 +34,8 @@ for k in range(1, 1000):
         result = []
         for i in range(0, 4):
             count = count + 1
+            command = './top.sh'
+            os.system(command)
             file1 = open(f'top{i}.txt', 'r')
             Lines = file1.readlines()
             if i == 0:
