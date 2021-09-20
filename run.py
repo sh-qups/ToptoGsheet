@@ -8,6 +8,8 @@ from time import sleep
 
 json_file = Path(__file__).parent / 'credentials/credentials.json'
 
+def read_date_time_underscore_format1():
+    return str(datetime.now().strftime('%d-%m_%H:%M:%S'))
 
 def read_date_time_underscore_format():
     return str(datetime.now().strftime('%d-%m-%y_%H-%M-%S'))
@@ -42,18 +44,19 @@ for k in range(1, 1000):
             if i == 0:
                 for l in range(3, 5):
                     # print(Lines[l])
-                    result.append([Lines[l][:-2], '', '', '', '', '', '', '', '', '', '', ''])
-                result.append(['PID', 'USER', 'PR', 'NI', 'VIRT', 'RES', 'SHR', 'S', '%CPU', '%MEM', 'TIME+', 'COMMAND'])
+                    result.append([Lines[l][:-2], '', '', '', '', '', '', '', '', '', '', '', ''])
+                result.append(['PID', 'USER', 'PR', 'NI', 'VIRT', 'RES', 'SHR', 'S', '%CPU', '%MEM', 'TIME+', 'COMMAND','TIMESTAMP'])
             else:
 
                 for j in range(7, len(Lines)):
                     result_list = (Lines[j].split('\n'))[0].split(' ')
                     result_list = list(filter(lambda a: a != '', result_list))
                     result.append(result_list)
+                    result.append(read_date_time_underscore_format1())
         # print(*result, sep='\n')
         # print(len(result))
         # df = pd.DataFrame(result, columns=['PID', 'USER', 'PR', 'NI', 'VIRT', 'RES', 'SHR', 'S', '%CPU', '%MEM', 'TIME+', 'COMMAND'])
-        df = pd.DataFrame(result, columns=['', '', '', '', '', '', '', '', '', '', '', ''])
+        df = pd.DataFrame(result, columns=['', '', '', '', '', '', '', '', '', '', '', '', ''])
         # print(df)
         if count == 100:
             gsheet_name = create_gsheet()
