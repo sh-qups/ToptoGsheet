@@ -38,14 +38,16 @@ for k in range(1, 1000):
         result = []
         for i in range(0, 4):
             print('started collecting')
-            command = './top.sh'
-            os.system(command)
+            subprocess.run(["top.sh"], shell=True)
+            # command = './top.sh'
+            # os.system(command)
+            print('executed top command')
             file1 = open(f'top{i}.txt', 'r')
             Lines = file1.readlines()
             if i == 0:
                 for l in range(3, 5):
                     # print(Lines[l])
-                    result.append([Lines[l][:-2], '', '', '', '', '', '', '', '', '', '', '', '', ''])
+                    result.append([Lines[l][:-2], '', '', '', '', '', '', '', '', '', '', '', ''])
                 result.append(['PID', 'USER', 'PR', 'NI', 'VIRT', 'RES', 'SHR', 'S', '%CPU', '%MEM', 'TIME+', 'COMMAND', 'TIMESTAMP'])
             else:
                 for j in range(7, len(Lines)):
