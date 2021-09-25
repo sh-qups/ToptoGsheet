@@ -55,7 +55,7 @@ for k in range(1, 10):
                 result_list = (Lines[j].split('\n'))[0].split(' ')
                 result_list = list(filter(lambda a: a != '', result_list))
                 result.append(result_list)
-                result.append(read_date_time_underscore_format1())
+                # result.append(read_date_time_underscore_format1())
         # print(*result, sep='\n')
         # print(len(result))
         df = pd.DataFrame(result, columns=['PID', 'USER', 'PR', 'NI', 'VIRT', 'RES', 'SHR', 'S', '%CPU', '%MEM', 'TIME+', 'COMMAND'])
