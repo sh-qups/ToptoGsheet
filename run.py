@@ -36,7 +36,7 @@ for k in range(1, 3):
     count = count + 1
     try:
         result = []
-        for i in range(0, 4):
+        for i in range(0, 3):
             print('started collecting')
             # subprocess.run(["./top.sh"], shell=True)
             # subprocess.call(["./top.sh"])
@@ -58,7 +58,7 @@ for k in range(1, 3):
                 result_list = list(filter(lambda a: a != '', result_list))
                 result.append(result_list)
                 # result.append(read_date_time_underscore_format1())
-        # print(*result, sep='\n')
+        print(*result, sep='\n')
         # print(len(result))
         df = pd.DataFrame(result, columns=['PID', 'USER', 'PR', 'NI', 'VIRT', 'RES', 'SHR', 'S', '%CPU', '%MEM', 'TIME+', 'COMMAND'])
         # df = pd.DataFrame(result, columns=['', '', '', '', '', '', '', '', '', '', '', '', ''])
@@ -67,10 +67,10 @@ for k in range(1, 3):
         # if count == 100:
         #     gsheet_name = create_gsheet()
         #     count = 0
-        print('creating worksheet')
+        # print('creating worksheet')
         sheetname = hour_min_time_underscore_format()
         create_worksheet(json_file, gsheet_name, f'S{k}_{sheetname}', 10, 15)
-        print('writing data to gsheet')
+        # print('writing data to gsheet')
         write_df_in_sheet(json_file, gsheet_name, f'S{k}_{sheetname}', df)
         print('report_num:', k)
     except:
