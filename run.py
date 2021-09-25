@@ -59,7 +59,7 @@ for k in range(1, 1000):
                     result_list.append(read_date_time_underscore_format1())
                     result.append(result_list)
 
-        print(*result, sep='\n')
+        # print(*result, sep='\n')
         # print(len(result))
         # df = pd.DataFrame(result, columns=['PID', 'USER', 'PR', 'NI', 'VIRT', 'RES', 'SHR', 'S', '%CPU', '%MEM', 'TIME+', 'COMMAND'])
         df = pd.DataFrame(result, columns=['', '', '', '', '', '', '', '', '', '', '', '', ''])
