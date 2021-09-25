@@ -56,7 +56,7 @@ for k in range(1, 3):
                 for j in range(7, len(Lines)):
                     result_list = (Lines[j].split('\n'))[0].split(' ')
                     result_list = list(filter(lambda a: a != '', result_list))
-                    result.append(read_date_time_underscore_format1())
+                    result_list.append(read_date_time_underscore_format1())
                     result.append(result_list)
 
         print(*result, sep='\n')
