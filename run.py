@@ -32,7 +32,7 @@ def create_gsheet():
 
 count = 0
 gsheet_name = create_gsheet()
-for k in range(1, 10):
+for k in range(1, 3):
     count = count + 1
     try:
         result = []
@@ -45,12 +45,14 @@ for k in range(1, 10):
             print('executed top command')
             file1 = open(f'top{i}.txt', 'r')
             Lines = file1.readlines()
+            print('read file')
             # if i == 0:
             #     for l in range(3, 5):
             #         # print(Lines[l])
             #         result.append([Lines[l][:-2], '', '', '', '', '', '', '', '', '', '', '', ''])
             #     result.append(['PID', 'USER', 'PR', 'NI', 'VIRT', 'RES', 'SHR', 'S', '%CPU', '%MEM', 'TIME+', 'COMMAND', 'TIMESTAMP'])
             # else:
+            print('extract result')
             for j in range(7, len(Lines)):
                 result_list = (Lines[j].split('\n'))[0].split(' ')
                 result_list = list(filter(lambda a: a != '', result_list))
@@ -62,13 +64,14 @@ for k in range(1, 10):
         # df = pd.DataFrame(result, columns=['', '', '', '', '', '', '', '', '', '', '', '', ''])
         print('collecting done')
         # print(df)
-        if count == 100:
-            gsheet_name = create_gsheet()
-            count = 0
+        # if count == 100:
+        #     gsheet_name = create_gsheet()
+        #     count = 0
         print('creating worksheet')
-        create_worksheet(json_file, gsheet_name, f'S{k}_{hour_min_time_underscore_format()}', 10, 15)
+        sheetname = hour_min_time_underscore_format()
+        create_worksheet(json_file, gsheet_name, f'S{k}_{sheetname}', 10, 15)
         print('writing data to gsheet')
-        write_df_in_sheet(json_file, gsheet_name, f'S{k}_{hour_min_time_underscore_format()}', df)
+        write_df_in_sheet(json_file, gsheet_name, f'S{k}_{sheetname}', df)
         print('report_num:', k)
     except:
         continue
