@@ -27,8 +27,8 @@ def create_gsheet():
     return gsheet_name
 
 
-script = os.path.abspath(Path(__file__).parent / 'top.sh')
-subprocess.call(script)
+# script = os.path.abspath(Path(__file__).parent / 'top.sh')
+# subprocess.call(script)
 
 count = 0
 gsheet_name = create_gsheet()
@@ -39,27 +39,27 @@ for k in range(1, 10):
         for i in range(0, 4):
             print('started collecting')
             # subprocess.run(["./top.sh"], shell=True)
-            subprocess.call(["./top.sh"])
-            # command = './top.sh'
-            # os.system(command)
+            # subprocess.call(["./top.sh"])
+            command = './top.sh'
+            os.system(command)
             print('executed top command')
             file1 = open(f'top{i}.txt', 'r')
             Lines = file1.readlines()
-            if i == 0:
-                for l in range(3, 5):
-                    # print(Lines[l])
-                    result.append([Lines[l][:-2], '', '', '', '', '', '', '', '', '', '', '', ''])
-                result.append(['PID', 'USER', 'PR', 'NI', 'VIRT', 'RES', 'SHR', 'S', '%CPU', '%MEM', 'TIME+', 'COMMAND', 'TIMESTAMP'])
-            else:
-                for j in range(7, len(Lines)):
-                    result_list = (Lines[j].split('\n'))[0].split(' ')
-                    result_list = list(filter(lambda a: a != '', result_list))
-                    result.append(result_list)
-                    result.append(read_date_time_underscore_format1())
+            # if i == 0:
+            #     for l in range(3, 5):
+            #         # print(Lines[l])
+            #         result.append([Lines[l][:-2], '', '', '', '', '', '', '', '', '', '', '', ''])
+            #     result.append(['PID', 'USER', 'PR', 'NI', 'VIRT', 'RES', 'SHR', 'S', '%CPU', '%MEM', 'TIME+', 'COMMAND', 'TIMESTAMP'])
+            # else:
+            for j in range(7, len(Lines)):
+                result_list = (Lines[j].split('\n'))[0].split(' ')
+                result_list = list(filter(lambda a: a != '', result_list))
+                result.append(result_list)
+                result.append(read_date_time_underscore_format1())
         # print(*result, sep='\n')
         # print(len(result))
-        # df = pd.DataFrame(result, columns=['PID', 'USER', 'PR', 'NI', 'VIRT', 'RES', 'SHR', 'S', '%CPU', '%MEM', 'TIME+', 'COMMAND'])
-        df = pd.DataFrame(result, columns=['', '', '', '', '', '', '', '', '', '', '', '', ''])
+        df = pd.DataFrame(result, columns=['PID', 'USER', 'PR', 'NI', 'VIRT', 'RES', 'SHR', 'S', '%CPU', '%MEM', 'TIME+', 'COMMAND'])
+        # df = pd.DataFrame(result, columns=['', '', '', '', '', '', '', '', '', '', '', '', ''])
         print('collecting done')
         # print(df)
         if count == 100:
