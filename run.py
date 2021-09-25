@@ -75,4 +75,4 @@ for k in range(1, 3):
         print('report_num:', k)
     except:
         continue
-    sleep(30)
+    sleep(5)
