@@ -32,14 +32,14 @@ subprocess.call(script)
 
 count = 0
 gsheet_name = create_gsheet()
-for k in range(1, 1000):
+for k in range(1, 10):
     count = count + 1
     try:
         result = []
         for i in range(0, 4):
             print('started collecting')
-            subprocess.run(["./top.sh"], shell=True)
-            # subprocess.call(["./top.sh"])
+            # subprocess.run(["./top.sh"], shell=True)
+            subprocess.call(["./top.sh"])
             # command = './top.sh'
             # os.system(command)
             print('executed top command')
