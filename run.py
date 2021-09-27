@@ -1,7 +1,7 @@
 import subprocess
 import os
 from utils.gspread_utils import *
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 import pandas as pd
 from time import sleep
@@ -11,6 +11,11 @@ json_file = Path(__file__).parent / 'credentials/credentials.json'
 
 def read_date_time_underscore_format1():
     return str(datetime.now().strftime('%H:%M:%S'))
+
+
+def read_date_time_underscore_format1_plus_6_hours():
+    # return str(datetime.now().strftime('%H:%M:%S'))
+    return str((datetime.now() + timedelta(hours=6)).strftime('%H:%M:%S'))
 
 
 def read_date_time_underscore_format():
@@ -25,7 +30,6 @@ def create_gsheet():
     gsheet_name = f'LR_MCR_{read_date_time_underscore_format()}'
     create_and_share_drive_spreadsheet_for_all_result(gsheet_name, json_file)
     return gsheet_name
-
 
 # script = os.path.abspath(Path(__file__).parent / 'top.sh')
 # subprocess.call(script)
@@ -56,7 +60,7 @@ for k in range(1, 1000):
                 for j in range(7, len(Lines)):
                     result_list = (Lines[j].split('\n'))[0].split(' ')
                     result_list = list(filter(lambda a: a != '', result_list))
-                    result_list.append(read_date_time_underscore_format1())
+                    result_list.append(read_date_time_underscore_format1_plus_6_hours())
                     result.append(result_list)
 
         # print(*result, sep='\n')
