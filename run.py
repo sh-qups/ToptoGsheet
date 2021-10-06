@@ -51,7 +51,7 @@ for k in range(1, 1000):
             if 'Total send rate:' in text or 'Total receive rate:' in text:
                 res.append((text.split(':')[-1]).split('    ')[-3])
         # CPU & memory usages
-        for i in range(0, 1):
+        for i in range(0, 4):
             file1 = open(f'top{i}.txt', 'r')
             Lines = file1.readlines()
             # print('read file')
