@@ -1,3 +1,4 @@
+import subprocess
 import os
 from utils.gspread_utils import *
 from datetime import datetime, timedelta
@@ -36,44 +37,36 @@ def create_gsheet():
 count = 0
 gsheet_name = create_gsheet()
 for k in range(1, 1000):
+
     try:
-        res = []
         result = []
-        command = './top.sh'
-        os.system(command)
-        command = 'sudo -S iftop -t -s10 -L15 >log1.txt'
-        os.system(command)
-        myfile = open('log1.txt')
-        readcontent = myfile.readlines()
-        # bandwidth
-        for i in range(len(readcontent)):
-            text = readcontent[i]
-            if 'Total send rate:' in text or 'Total receive rate:' in text:
-                res.append((text.split(':')[-1]).split('    ')[-3])
-        # CPU & memory usages
-        for i in range(0, 1):
+        for i in range(0, 4):
+            # print('started collecting')
+            # subprocess.run(["./top.sh"], shell=True)
+            # subprocess.call(["./top.sh"])
+            command = './top.sh'
+            os.system(command)
+            # print('executed top command')
             file1 = open(f'top{i}.txt', 'r')
             Lines = file1.readlines()
             # print('read file')
             if i == 0:
                 for li in range(3, 5):
                     # print(Lines[l])
-                    result.append([Lines[li][:-2], '', '', '', '', '', '', '', '', '', '', '', '', '', ''])
-                result.append(['PID', 'USER', 'PR', 'NI', 'VIRT', 'RES', 'SHR', 'S', '%CPU', '%MEM', 'TIME+', 'COMMAND', 'TIMESTAMP','Input','Output'])
+                    result.append([Lines[li][:-2], '', '', '', '', '', '', '', '', '', '', '', ''])
+                result.append(['PID', 'USER', 'PR', 'NI', 'VIRT', 'RES', 'SHR', 'S', '%CPU', '%MEM', 'TIME+', 'COMMAND', 'TIMESTAMP'])
             else:
                 # print('extract result')
                 for j in range(7, len(Lines)):
                     result_list = (Lines[j].split('\n'))[0].split(' ')
                     result_list = list(filter(lambda a: a != '', result_list))
                     result_list.append(read_date_time_underscore_format1_plus_6_hours())
-                    result_list.append(res[1])
-                    result_list.append(res[0])
                     result.append(result_list)
 
         # print(*result, sep='\n')
         # print(len(result))
         # df = pd.DataFrame(result, columns=['PID', 'USER', 'PR', 'NI', 'VIRT', 'RES', 'SHR', 'S', '%CPU', '%MEM', 'TIME+', 'COMMAND'])
-        df = pd.DataFrame(result, columns=['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''])
+        df = pd.DataFrame(result, columns=['', '', '', '', '', '', '', '', '', '', '', '', ''])
         # print('collecting done')
         # print(df)
         count = count + 1
