@@ -17,6 +17,11 @@ def read_date_time_underscore_format1_plus_6_hours():
     return str((datetime.now() + timedelta(hours=6)).strftime('%H:%M:%S'))
 
 
+def read_date_time_underscore_format1_plus_6_hours1():
+    # return str(datetime.now().strftime('%H:%M:%S'))
+    return str((datetime.now() + timedelta(hours=6)).strftime('%d_%m_%H:%M:%S'))
+
+
 def read_date_time_underscore_format():
     return str(datetime.now().strftime('%d-%m-%y_%H-%M-%S'))
 
@@ -26,9 +31,10 @@ def hour_min_time_underscore_format():
 
 
 def create_gsheet():
-    gsheet_name = f'LR_MCR_{read_date_time_underscore_format1_plus_6_hours()}'
+    gsheet_name = f'LR_MCR_{read_date_time_underscore_format1_plus_6_hours1()}'
     create_and_share_drive_spreadsheet_for_all_result(gsheet_name, json_file)
     return gsheet_name
+
 
 # script = os.path.abspath(Path(__file__).parent / 'top.sh')
 # subprocess.call(script)
@@ -59,22 +65,24 @@ for k in range(1, 1000):
             if i == 0:
                 for li in range(3, 5):
                     # print(Lines[l])
-                    result.append([Lines[li][:-2], '', '', '', '', '', '', '', '', '', '', '', '', '', ''])
-                result.append(['PID', 'USER', 'PR', 'NI', 'VIRT', 'RES', 'SHR', 'S', '%CPU', '%MEM', 'TIME+', 'COMMAND', 'TIMESTAMP','Input','Output'])
+                    result.append([Lines[li][:-2], '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''])
+                result.append(['PID', 'USER', 'PR', 'NI', 'VIRT', 'RES', 'SHR', 'S', '%CPU', '%MEM', 'TIME+', 'COMMAND', 'TIMESTAMP', 'Input', 'Output','Interface'])
             else:
                 # print('extract result')
                 for j in range(7, len(Lines)):
                     result_list = (Lines[j].split('\n'))[0].split(' ')
                     result_list = list(filter(lambda a: a != '', result_list))
                     result_list.append(read_date_time_underscore_format1_plus_6_hours())
-                    result_list.append(res[1])
-                    result_list.append(res[0])
+                    if j == 7:
+                     result_list.append(res[1])
+                     result_list.append(res[0])
+                     result_list.append('eth0')
                     result.append(result_list)
 
         # print(*result, sep='\n')
         # print(len(result))
         # df = pd.DataFrame(result, columns=['PID', 'USER', 'PR', 'NI', 'VIRT', 'RES', 'SHR', 'S', '%CPU', '%MEM', 'TIME+', 'COMMAND'])
-        df = pd.DataFrame(result, columns=['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''])
+        df = pd.DataFrame(result, columns=['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''])
         # print('collecting done')
         # print(df)
         count = count + 1
