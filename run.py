@@ -26,7 +26,7 @@ def hour_min_time_underscore_format():
 
 
 def create_gsheet():
-    gsheet_name = f'LR_MCR_{read_date_time_underscore_format()}'
+    gsheet_name = f'LR_MCR_{read_date_time_underscore_format1_plus_6_hours()}'
     create_and_share_drive_spreadsheet_for_all_result(gsheet_name, json_file)
     return gsheet_name
 
