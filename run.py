@@ -41,7 +41,8 @@ for k in range(1, 1000):
         result = []
         command = './top.sh'
         os.system(command)
-        command = 'sudo -S iftop -t -s10 -L15 >log1.txt'
+        # command = 'sudo -S iftop -t -s10 -L15  -i eth0 >log1.txt'
+        command = 'sudo  iftop -t -s10 -L15  -i eth0 >log1.txt'
         os.system(command)
         myfile = open('log1.txt')
         readcontent = myfile.readlines()
@@ -77,7 +78,7 @@ for k in range(1, 1000):
         # print('collecting done')
         # print(df)
         count = count + 1
-        if count >= 100:
+        if count >= 500:
             gsheet_name = create_gsheet()
             count = 0
             print('creating worksheet')
