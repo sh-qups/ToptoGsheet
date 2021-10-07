@@ -48,7 +48,7 @@ for k in range(1, 1000):
         command = './top.sh'
         os.system(command)
         # command = 'sudo -S iftop -t -s10 -L15  -i eth0 >log1.txt'
-        command = 'sudo  iftop -t -s10 -L15  -i eth0 >log1.txt'
+        command = 'sudo  iftop -t -s5 -L15  -i eth0 >log1.txt'
         os.system(command)
         myfile = open('log1.txt')
         readcontent = myfile.readlines()
@@ -74,9 +74,9 @@ for k in range(1, 1000):
                     result_list = list(filter(lambda a: a != '', result_list))
                     result_list.append(read_date_time_underscore_format1_plus_6_hours())
                     if j == 7:
-                     result_list.append(res[1])
-                     result_list.append(res[0])
-                     result_list.append('eth0')
+                        result_list.append(res[1])
+                        result_list.append(res[0])
+                        result_list.append('eth0')
                     result.append(result_list)
 
         # print(*result, sep='\n')
